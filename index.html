@@ -1,165 +1,710 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Push Security Test Lab</title>
-    <style>
-        body {
-            font-family: -apple-system, sans-serif;
-            max-width: 680px;
-            margin: 60px auto;
-            padding: 0 24px;
-            background: #f8f9fa;
-            color: #1a1a1a;
-            line-height: 1.7;
-        }
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Jake's Browser Sec</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=JetBrains+Mono:wght@400;700&display=swap');
 
-        h1 {
-            font-size: 28px;
-            margin-bottom: 6px;
-        }
+    :root {
+      --bg: #0a0a0f;
+      --surface: #111118;
+      --surface2: #1a1a24;
+      --border: #2a2a3a;
+      --orange: #EE4323;
+      --orange-dim: rgba(238,67,35,0.15);
+      --orange-glow: rgba(238,67,35,0.4);
+      --text: #e8e8f0;
+      --muted: #6b6b8a;
+      --green: #00e5a0;
+      --blue: #4361ee;
+      --mono: 'JetBrains Mono', monospace;
+    }
 
-        .subtitle {
-            color: #666;
-            margin-bottom: 40px;
-            font-size: 14px;
-        }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
 
-        .card {
-            background: white;
-            border: 1px solid #e0e0e0;
-            border-radius: 8px;
-            padding: 24px;
-            margin-bottom: 20px;
-        }
+    body {
+      font-family: 'Inter', sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      min-height: 100vh;
+      overflow-x: hidden;
+    }
 
-        .card h2 {
-            font-size: 16px;
-            margin-bottom: 12px;
-        }
+    /* ── Grid background ── */
+    body::before {
+      content: '';
+      position: fixed;
+      inset: 0;
+      background-image:
+        linear-gradient(rgba(238,67,35,0.04) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(238,67,35,0.04) 1px, transparent 1px);
+      background-size: 40px 40px;
+      pointer-events: none;
+      z-index: 0;
+    }
 
-        .card p {
-            font-size: 14px;
-            color: #444;
-            margin-bottom: 14px;
-        }
+    /* ── Glow orb ── */
+    body::after {
+      content: '';
+      position: fixed;
+      top: -200px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 700px;
+      height: 700px;
+      background: radial-gradient(circle, rgba(238,67,35,0.12) 0%, transparent 70%);
+      pointer-events: none;
+      z-index: 0;
+    }
 
-        a.btn {
-            display: inline-block;
-            background: #1a1a2e;
-            color: white;
-            text-decoration: none;
-            padding: 10px 20px;
-            border-radius: 6px;
-            font-size: 13px;
-            font-weight: 600;
-            margin-right: 8px;
-            margin-top: 4px;
-        }
+    .wrap {
+      position: relative;
+      z-index: 1;
+      max-width: 860px;
+      margin: 0 auto;
+      padding: 0 24px 80px;
+    }
 
-        a.btn.secondary {
-            background: white;
-            color: #1a1a2e;
-            border: 1px solid #1a1a2e;
-        }
+    /* ── Header / Hero ── */
+    .hero {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 64px 0 48px;
+      text-align: center;
+    }
 
-        .label {
-            display: inline-block;
-            font-size: 10px;
-            background: #e8f0ff;
-            color: #1a4dbf;
-            border-radius: 3px;
-            padding: 2px 7px;
-            font-weight: 700;
-            letter-spacing: 0.05em;
-            text-transform: uppercase;
-            margin-bottom: 8px;
-        }
+    /* ── Logo SVG Avatar ── */
+    .logo-wrap {
+      position: relative;
+      margin-bottom: 28px;
+    }
 
-        input[type="text"],
-        input[type="password"],
-        input[type="email"] {
-            width: 100%;
-            padding: 10px 12px;
-            border: 1px solid #ccc;
-            border-radius: 6px;
-            font-size: 14px;
-            margin-bottom: 10px;
-            box-sizing: border-box;
-        }
+    .logo-ring {
+      position: absolute;
+      inset: -8px;
+      border-radius: 50%;
+      background: conic-gradient(from 0deg, #EE4323, #ff8c42, #EE4323, #b03010, #EE4323);
+      animation: spin 6s linear infinite;
+      filter: blur(1px);
+    }
 
-        input[type="submit"] {
-            background: #e63946;
-            color: white;
-            border: none;
-            padding: 10px 20px;
-            border-radius: 6px;
-            font-size: 14px;
-            font-weight: 600;
-            cursor: pointer;
-        }
+    .logo-inner {
+      position: relative;
+      width: 140px;
+      height: 140px;
+      border-radius: 50%;
+      background: var(--surface);
+      border: 3px solid var(--border);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+    }
 
-        footer {
-            margin-top: 60px;
-            font-size: 12px;
-            color: #999;
-        }
-    </style>
+    @keyframes spin {
+      to { transform: rotate(360deg); }
+    }
+
+    /* ── Wordmark ── */
+    .logo-text {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 4px;
+    }
+
+    .logo-text .name {
+      font-size: 36px;
+      font-weight: 900;
+      letter-spacing: -1px;
+      background: linear-gradient(135deg, #ffffff 0%, #EE4323 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    .logo-text .tagline {
+      font-family: var(--mono);
+      font-size: 12px;
+      color: var(--orange);
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+    }
+
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      background: var(--orange-dim);
+      border: 1px solid var(--orange);
+      border-radius: 999px;
+      padding: 5px 14px;
+      font-size: 12px;
+      font-family: var(--mono);
+      color: var(--orange);
+      margin-top: 20px;
+      animation: pulse-border 2s ease-in-out infinite;
+    }
+
+    .badge .dot {
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: var(--green);
+      animation: blink 1.4s ease-in-out infinite;
+    }
+
+    @keyframes blink {
+      0%, 100% { opacity: 1; }
+      50% { opacity: 0.3; }
+    }
+
+    @keyframes pulse-border {
+      0%, 100% { box-shadow: 0 0 0 0 var(--orange-glow); }
+      50% { box-shadow: 0 0 0 4px transparent; }
+    }
+
+    .hero-desc {
+      margin-top: 16px;
+      max-width: 560px;
+      font-size: 15px;
+      color: var(--muted);
+      line-height: 1.7;
+    }
+
+    /* ── Stats bar ── */
+    .stats {
+      display: flex;
+      gap: 0;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      margin: 32px 0 48px;
+      overflow: hidden;
+    }
+
+    .stat {
+      flex: 1;
+      padding: 20px;
+      text-align: center;
+      border-right: 1px solid var(--border);
+    }
+
+    .stat:last-child { border-right: none; }
+
+    .stat .val {
+      font-size: 22px;
+      font-weight: 800;
+      color: var(--orange);
+      font-family: var(--mono);
+    }
+
+    .stat .lbl {
+      font-size: 11px;
+      color: var(--muted);
+      margin-top: 3px;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+    }
+
+    /* ── Section heading ── */
+    .section-head {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 20px;
+    }
+
+    .section-head h2 {
+      font-size: 13px;
+      font-weight: 700;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--muted);
+    }
+
+    .section-head::after {
+      content: '';
+      flex: 1;
+      height: 1px;
+      background: var(--border);
+    }
+
+    /* ── Scenario cards ── */
+    .cards {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 16px;
+      margin-bottom: 48px;
+    }
+
+    .card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 24px;
+      transition: border-color 0.2s, transform 0.2s;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .card::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0;
+      height: 2px;
+      background: linear-gradient(90deg, var(--orange), transparent);
+      opacity: 0;
+      transition: opacity 0.2s;
+    }
+
+    .card:hover {
+      border-color: var(--orange);
+      transform: translateY(-2px);
+    }
+
+    .card:hover::before { opacity: 1; }
+
+    .card-icon {
+      font-size: 28px;
+      margin-bottom: 12px;
+    }
+
+    .scenario-tag {
+      font-size: 10px;
+      font-family: var(--mono);
+      font-weight: 700;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--orange);
+      background: var(--orange-dim);
+      display: inline-block;
+      padding: 3px 8px;
+      border-radius: 4px;
+      margin-bottom: 10px;
+    }
+
+    .card h3 {
+      font-size: 16px;
+      font-weight: 700;
+      margin-bottom: 8px;
+    }
+
+    .card p {
+      font-size: 13px;
+      color: var(--muted);
+      line-height: 1.6;
+      margin-bottom: 16px;
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: var(--orange);
+      color: white;
+      text-decoration: none;
+      padding: 9px 18px;
+      border-radius: 7px;
+      font-size: 13px;
+      font-weight: 600;
+      border: none;
+      cursor: pointer;
+      transition: background 0.15s, transform 0.1s;
+    }
+
+    .btn:hover {
+      background: #d63a1e;
+      transform: translateY(-1px);
+    }
+
+    .btn.ghost {
+      background: transparent;
+      border: 1px solid var(--border);
+      color: var(--text);
+    }
+
+    .btn.ghost:hover {
+      border-color: var(--orange);
+      color: var(--orange);
+      background: var(--orange-dim);
+    }
+
+    /* File upload card spans full width */
+    .card.full { grid-column: 1 / -1; }
+
+    /* ── Upload drop zone ── */
+    .drop-zone {
+      border: 2px dashed var(--border);
+      border-radius: 8px;
+      padding: 32px;
+      text-align: center;
+      transition: border-color 0.2s, background 0.2s;
+      cursor: pointer;
+      margin-bottom: 12px;
+    }
+
+    .drop-zone:hover, .drop-zone.drag-over {
+      border-color: var(--orange);
+      background: var(--orange-dim);
+    }
+
+    .drop-zone .dz-icon { font-size: 32px; margin-bottom: 8px; }
+    .drop-zone .dz-label { font-size: 14px; font-weight: 600; }
+    .drop-zone .dz-sub { font-size: 12px; color: var(--muted); margin-top: 4px; }
+
+    #file-input { display: none; }
+
+    #upload-status {
+      font-size: 12px;
+      font-family: var(--mono);
+      color: var(--green);
+      min-height: 18px;
+      margin-top: 8px;
+    }
+
+    /* ── Terminal log ── */
+    .terminal {
+      background: #050508;
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      overflow: hidden;
+      margin-bottom: 48px;
+    }
+
+    .terminal-bar {
+      background: var(--surface2);
+      padding: 10px 16px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .terminal-bar .dot { width: 10px; height: 10px; border-radius: 50%; }
+    .terminal-bar .dot.r { background: #ff5f57; }
+    .terminal-bar .dot.y { background: #ffbd2e; }
+    .terminal-bar .dot.g { background: #28ca41; }
+    .terminal-bar .title { font-size: 12px; color: var(--muted); font-family: var(--mono); margin-left: 8px; }
+
+    .terminal-body {
+      padding: 20px;
+      font-family: var(--mono);
+      font-size: 12.5px;
+      line-height: 1.8;
+    }
+
+    .t-line { display: flex; gap: 8px; }
+    .t-prompt { color: var(--orange); user-select: none; }
+    .t-cmd { color: #a6e3a1; }
+    .t-out { color: var(--muted); }
+    .t-highlight { color: var(--green); }
+    .t-warn { color: #f9e2af; }
+
+    .cursor {
+      display: inline-block;
+      width: 8px;
+      height: 14px;
+      background: var(--orange);
+      vertical-align: middle;
+      animation: blink 1s step-end infinite;
+    }
+
+    /* ── Footer ── */
+    footer {
+      border-top: 1px solid var(--border);
+      padding: 24px 0 0;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 12px;
+      color: var(--muted);
+      font-family: var(--mono);
+    }
+
+    footer a { color: var(--orange); text-decoration: none; }
+    footer a:hover { text-decoration: underline; }
+
+    /* ── Responsive ── */
+    @media (max-width: 600px) {
+      .cards { grid-template-columns: 1fr; }
+      .stats { flex-direction: column; }
+      .stat { border-right: none; border-bottom: 1px solid var(--border); }
+      .stat:last-child { border-bottom: none; }
+    }
+  </style>
 </head>
-
 <body>
+<div class="wrap">
 
-    <h1>Push Security Test Lab</h1>
-    <p class="subtitle">A controlled environment for testing Push Security browser extension controls.</p>
+  <!-- ── HERO ── -->
+  <div class="hero">
+    <!-- Avatar Logo -->
+    <div class="logo-wrap">
+      <div class="logo-ring"></div>
+      <div class="logo-inner">
+        <!-- Jake avatar SVG: cartoon face, sunglasses, thumbs up -->
+        <svg width="120" height="120" viewBox="0 0 120 120" xmlns="http://www.w3.org/2000/svg">
+          <!-- Background -->
+          <circle cx="60" cy="60" r="60" fill="#111118"/>
+
+          <!-- Neck -->
+          <rect x="50" y="87" width="20" height="16" rx="6" fill="#C68642"/>
+
+          <!-- Head -->
+          <ellipse cx="60" cy="68" rx="30" ry="32" fill="#D4944A"/>
+
+          <!-- Hair (dark, slightly wavy top) -->
+          <ellipse cx="60" cy="40" rx="30" ry="14" fill="#2a1a0a"/>
+          <ellipse cx="60" cy="38" rx="28" ry="11" fill="#3a2310"/>
+          <!-- Side hair bumps -->
+          <ellipse cx="32" cy="54" rx="7" ry="12" fill="#2a1a0a"/>
+          <ellipse cx="88" cy="54" rx="7" ry="12" fill="#2a1a0a"/>
+
+          <!-- Ears -->
+          <ellipse cx="30" cy="68" rx="6" ry="8" fill="#C68642"/>
+          <ellipse cx="90" cy="68" rx="6" ry="8" fill="#C68642"/>
+
+          <!-- Face skin overlay (cleans up ears) -->
+          <ellipse cx="60" cy="68" rx="28" ry="30" fill="#D4944A"/>
+
+          <!-- Cool Sunglasses -->
+          <!-- Frame bridge -->
+          <rect x="50" y="60" width="20" height="3" rx="1.5" fill="#111"/>
+          <!-- Left lens -->
+          <rect x="26" y="55" width="22" height="14" rx="5" fill="#1a1a2e"/>
+          <rect x="26" y="55" width="22" height="14" rx="5" fill="none" stroke="#EE4323" stroke-width="2"/>
+          <!-- Left lens shine -->
+          <rect x="29" y="57" width="6" height="3" rx="2" fill="rgba(255,255,255,0.2)"/>
+          <!-- Right lens -->
+          <rect x="72" y="55" width="22" height="14" rx="5" fill="#1a1a2e"/>
+          <rect x="72" y="55" width="22" height="14" rx="5" fill="none" stroke="#EE4323" stroke-width="2"/>
+          <!-- Right lens shine -->
+          <rect x="75" y="57" width="6" height="3" rx="2" fill="rgba(255,255,255,0.2)"/>
+          <!-- Temple arms -->
+          <rect x="20" y="59" width="7" height="3" rx="1.5" fill="#EE4323"/>
+          <rect x="93" y="59" width="7" height="3" rx="1.5" fill="#EE4323"/>
+
+          <!-- Nose -->
+          <ellipse cx="60" cy="76" rx="4" ry="3" fill="#c07a36"/>
+
+          <!-- Smile -->
+          <path d="M48 83 Q60 93 72 83" stroke="#8B4513" stroke-width="2.5" fill="none" stroke-linecap="round"/>
+
+          <!-- Cheek blush -->
+          <ellipse cx="38" cy="78" rx="6" ry="4" fill="rgba(238,100,60,0.25)"/>
+          <ellipse cx="82" cy="78" rx="6" ry="4" fill="rgba(238,100,60,0.25)"/>
+
+          <!-- Shirt -->
+          <path d="M30 106 Q30 95 50 92 L60 96 L70 92 Q90 95 90 106 Z" fill="#EE4323"/>
+
+          <!-- Thumbs up arm (right side, thumb pointing up) -->
+          <g transform="translate(80, 72)">
+            <!-- Arm -->
+            <ellipse cx="10" cy="8" rx="9" ry="7" fill="#D4944A" transform="rotate(-30, 10, 8)"/>
+            <!-- Fist -->
+            <rect x="4" y="2" width="16" height="12" rx="5" fill="#D4944A"/>
+            <!-- Thumb up -->
+            <rect x="3" y="-8" width="8" height="14" rx="4" fill="#D4944A"/>
+            <!-- Knuckle lines -->
+            <line x1="7" y1="4" x2="7" y2="12" stroke="#c07a36" stroke-width="1" opacity="0.5"/>
+            <line x1="11" y1="4" x2="11" y2="12" stroke="#c07a36" stroke-width="1" opacity="0.5"/>
+            <line x1="15" y1="4" x2="15" y2="12" stroke="#c07a36" stroke-width="1" opacity="0.5"/>
+          </g>
+
+          <!-- Subtle head shadow -->
+          <ellipse cx="60" cy="98" rx="24" ry="4" fill="rgba(0,0,0,0.3)"/>
+        </svg>
+      </div>
+    </div>
+
+    <div class="logo-text">
+      <div class="name">Jake's Browser Sec</div>
+      <div class="tagline">// Browser Security Testing Lab</div>
+    </div>
+
+    <div class="badge">
+      <span class="dot"></span>
+      Push Security · Active Session
+    </div>
+
+    <p class="hero-desc">
+      A controlled environment for testing Push Security browser extension telemetry.
+      Every action on this page is a signal. Download a file. Upload something. Navigate away.
+      Push is watching. 👀
+    </p>
+  </div>
+
+  <!-- ── STATS ── -->
+  <div class="stats">
+    <div class="stat">
+      <div class="val">3</div>
+      <div class="lbl">Test Scenarios</div>
+    </div>
+    <div class="stat">
+      <div class="val" id="event-count">0</div>
+      <div class="lbl">Events Triggered</div>
+    </div>
+    <div class="stat">
+      <div class="val">👁️</div>
+      <div class="lbl">Push is Watching</div>
+    </div>
+    <div class="stat">
+      <div class="val" style="color:var(--green)">LIVE</div>
+      <div class="lbl">Extension Status</div>
+    </div>
+  </div>
+
+  <!-- ── SCENARIOS ── -->
+  <div class="section-head"><h2>Test Scenarios</h2></div>
+
+  <div class="cards">
 
     <!-- Scenario 1: File Download -->
-    <div class="card">
-        <div class="label">Scenario 1</div>
-        <h2>File Download</h2>
-        <p>Download the test PDF below. Push Security monitors file downloads to detect sensitive data exfiltration.</p>
-        <a class="btn" href="test-file.pdf" download>Download test-file.pdf</a>
+    <div class="card" onclick="incrementEvents()">
+      <div class="card-icon">📥</div>
+      <div class="scenario-tag">Scenario 01</div>
+      <h3>File Download</h3>
+      <p>Download the test PDF. Push Security detects file downloads to flag potential data exfiltration from unsanctioned web apps.</p>
+      <a class="btn" href="test-file.pdf" download onclick="incrementEvents()">
+        ↓ Download test-file.pdf
+      </a>
     </div>
 
-    <!-- Scenario 2: External Link Navigation -->
+    <!-- Scenario 2: External Navigation -->
     <div class="card">
-        <div class="label">Scenario 2</div>
-        <h2>External Link Navigation</h2>
-        <p>Click these links to simulate navigation to external services. Push detects when users visit new SaaS apps
-            for the first time.</p>
-        <a class="btn" href="https://docs.google.com" target="_blank">Google Docs</a>
-        <a class="btn secondary" href="https://notion.so" target="_blank">Notion</a>
-        <a class="btn secondary" href="https://dropbox.com" target="_blank">Dropbox</a>
+      <div class="card-icon">🔗</div>
+      <div class="scenario-tag">Scenario 02</div>
+      <h3>Shadow SaaS Navigation</h3>
+      <p>Click to visit unsanctioned SaaS apps. Push detects when users access new or unmanaged apps for the first time.</p>
+      <div style="display:flex; gap:8px; flex-wrap:wrap;">
+        <a class="btn" href="https://notion.so" target="_blank" onclick="incrementEvents()">Notion</a>
+        <a class="btn ghost" href="https://dropbox.com" target="_blank" onclick="incrementEvents()">Dropbox</a>
+        <a class="btn ghost" href="https://docs.google.com" target="_blank" onclick="incrementEvents()">Google Docs</a>
+      </div>
     </div>
 
-    <!-- Scenario 3: Mock Login Form -->
-    <div class="card">
-        <div class="label">Scenario 3</div>
-        <h2>Mock Credential Submission</h2>
-        <p>This form simulates a login page. Push Security detects credential input and can flag weak, reused, or
-            unmanaged passwords.</p>
-        <form action="#" method="post">
-            <input type="email" placeholder="Email address" />
-            <input type="password" placeholder="Password" />
-            <input type="submit" value="Sign In (Test)" />
-        </form>
+    <!-- Scenario 3: File Upload (full width) -->
+    <div class="card full">
+      <div class="card-icon">📤</div>
+      <div class="scenario-tag">Scenario 03</div>
+      <h3>File Upload to Unmanaged App</h3>
+      <p>Upload any file below. Push Security monitors file uploads to unmanaged or unsanctioned destinations — a key signal for data loss detection.</p>
+
+      <div class="drop-zone" id="drop-zone" onclick="document.getElementById('file-input').click()">
+        <div class="dz-icon">🗂️</div>
+        <div class="dz-label">Drop a file or click to browse</div>
+        <div class="dz-sub">Any file type · Push will log the upload event</div>
+      </div>
+      <input type="file" id="file-input" />
+      <div id="upload-status"></div>
     </div>
 
-    <!-- Scenario 4: File Upload -->
-    <div class="card">
-        <div class="label">Scenario 4</div>
-        <h2>File Upload</h2>
-        <p>Upload any file below. Push Security can detect file uploads to unmanaged or unsanctioned web apps.</p>
-        <form>
-            <input type="file" />
-            <br /><br />
-            <input type="submit" value="Upload (Test)" />
-        </form>
+  </div>
+
+  <!-- ── TERMINAL LOG ── -->
+  <div class="section-head"><h2>Live Event Log</h2></div>
+
+  <div class="terminal">
+    <div class="terminal-bar">
+      <span class="dot r"></span><span class="dot y"></span><span class="dot g"></span>
+      <span class="title">push-extension — event stream</span>
     </div>
+    <div class="terminal-body" id="terminal-log">
+      <div class="t-line"><span class="t-prompt">→</span><span class="t-out">Connecting to Push Security extension...</span></div>
+      <div class="t-line"><span class="t-prompt">→</span><span class="t-highlight">Extension enrolled. Tenant: jakesbrowsersec.com</span></div>
+      <div class="t-line"><span class="t-prompt">→</span><span class="t-out">Monitoring: file downloads, SaaS navigation, uploads</span></div>
+      <div class="t-line"><span class="t-prompt">→</span><span class="t-warn">Waiting for test events...</span>&nbsp;<span class="cursor"></span></div>
+    </div>
+  </div>
 
-    <footer>Push Security Test Lab · Internal Use Only · Not a real application</footer>
+  <!-- ── FOOTER ── -->
+  <footer>
+    <span>jakesbrowsersec.com · <a href="https://pushsecurity.com" target="_blank">pushsecurity.com</a></span>
+    <span>Internal Use Only · Not a real app</span>
+  </footer>
 
+</div>
+
+<script>
+  let eventCount = 0;
+  const counter = document.getElementById('event-count');
+  const log = document.getElementById('terminal-log');
+
+  const eventMessages = {
+    download: 'FILE_DOWNLOAD detected · test-file.pdf · jakesbrowsersec.com',
+    notion: 'SHADOW_SAAS detected · notion.so · unmanaged app · first-visit',
+    dropbox: 'SHADOW_SAAS detected · dropbox.com · unmanaged app · first-visit',
+    gdocs: 'SHADOW_SAAS detected · docs.google.com · personal account risk',
+    upload: 'FILE_UPLOAD detected · {filename} · destination: jakesbrowsersec.com',
+  };
+
+  function addLogLine(msg, type = 'warn') {
+    const line = document.createElement('div');
+    line.className = 't-line';
+    const timestamp = new Date().toLocaleTimeString('en-US', { hour12: false });
+    line.innerHTML = `<span class="t-prompt">[${timestamp}]</span><span class="t-${type}">&nbsp;${msg}</span>`;
+    // Remove cursor from last line
+    const cursors = log.querySelectorAll('.cursor');
+    cursors.forEach(c => c.remove());
+    log.appendChild(line);
+    // Add cursor line
+    const cursorLine = document.createElement('div');
+    cursorLine.className = 't-line';
+    cursorLine.innerHTML = `<span class="t-prompt">→</span>&nbsp;<span class="cursor"></span>`;
+    log.appendChild(cursorLine);
+    log.scrollTop = log.scrollHeight;
+  }
+
+  function incrementEvents(type, extra) {
+    eventCount++;
+    counter.textContent = eventCount;
+    counter.style.color = '#00e5a0';
+    setTimeout(() => counter.style.color = 'var(--orange)', 400);
+    if (type) addLogLine(eventMessages[type]?.replace('{filename}', extra || 'file'), 'highlight');
+  }
+
+  // Override link clicks for logging
+  document.querySelectorAll('a[target="_blank"]').forEach(a => {
+    a.addEventListener('click', () => {
+      const href = a.href;
+      if (href.includes('notion')) incrementEvents('notion');
+      else if (href.includes('dropbox')) incrementEvents('dropbox');
+      else if (href.includes('google')) incrementEvents('gdocs');
+    });
+  });
+
+  document.querySelector('a[download]')?.addEventListener('click', () => {
+    incrementEvents('download');
+  });
+
+  // File upload
+  const fileInput = document.getElementById('file-input');
+  const dropZone = document.getElementById('drop-zone');
+  const uploadStatus = document.getElementById('upload-status');
+
+  fileInput.addEventListener('change', e => {
+    const file = e.target.files[0];
+    if (file) {
+      uploadStatus.textContent = `✓ Staged: ${file.name} (${(file.size/1024).toFixed(1)} KB) — Push event logged`;
+      incrementEvents('upload', file.name);
+    }
+  });
+
+  dropZone.addEventListener('dragover', e => { e.preventDefault(); dropZone.classList.add('drag-over'); });
+  dropZone.addEventListener('dragleave', () => dropZone.classList.remove('drag-over'));
+  dropZone.addEventListener('drop', e => {
+    e.preventDefault();
+    dropZone.classList.remove('drag-over');
+    const file = e.dataTransfer.files[0];
+    if (file) {
+      uploadStatus.textContent = `✓ Staged: ${file.name} (${(file.size/1024).toFixed(1)} KB) — Push event logged`;
+      incrementEvents('upload', file.name);
+    }
+  });
+</script>
 </body>
-
 </html>
