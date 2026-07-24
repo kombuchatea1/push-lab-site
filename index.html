@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Push Security Test Lab</title>
+    <style>
+        body {
+            font-family: -apple-system, sans-serif;
+            max-width: 680px;
+            margin: 60px auto;
+            padding: 0 24px;
+            background: #f8f9fa;
+            color: #1a1a1a;
+            line-height: 1.7;
+        }
+
+        h1 {
+            font-size: 28px;
+            margin-bottom: 6px;
+        }
+
+        .subtitle {
+            color: #666;
+            margin-bottom: 40px;
+            font-size: 14px;
+        }
+
+        .card {
+            background: white;
+            border: 1px solid #e0e0e0;
+            border-radius: 8px;
+            padding: 24px;
+            margin-bottom: 20px;
+        }
+
+        .card h2 {
+            font-size: 16px;
+            margin-bottom: 12px;
+        }
+
+        .card p {
+            font-size: 14px;
+            color: #444;
+            margin-bottom: 14px;
+        }
+
+        a.btn {
+            display: inline-block;
+            background: #1a1a2e;
+            color: white;
+            text-decoration: none;
+            padding: 10px 20px;
+            border-radius: 6px;
+            font-size: 13px;
+            font-weight: 600;
+            margin-right: 8px;
+            margin-top: 4px;
+        }
+
+        a.btn.secondary {
+            background: white;
+            color: #1a1a2e;
+            border: 1px solid #1a1a2e;
+        }
+
+        .label {
+            display: inline-block;
+            font-size: 10px;
+            background: #e8f0ff;
+            color: #1a4dbf;
+            border-radius: 3px;
+            padding: 2px 7px;
+            font-weight: 700;
+            letter-spacing: 0.05em;
+            text-transform: uppercase;
+            margin-bottom: 8px;
+        }
+
+        input[type="text"],
+        input[type="password"],
+        input[type="email"] {
+            width: 100%;
+            padding: 10px 12px;
+            border: 1px solid #ccc;
+            border-radius: 6px;
+            font-size: 14px;
+            margin-bottom: 10px;
+            box-sizing: border-box;
+        }
+
+        input[type="submit"] {
+            background: #e63946;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 6px;
+            font-size: 14px;
+            font-weight: 600;
+            cursor: pointer;
+        }
+
+        footer {
+            margin-top: 60px;
+            font-size: 12px;
+            color: #999;
+        }
+    </style>
+</head>
+
+<body>
+
+    <h1>Push Security Test Lab</h1>
+    <p class="subtitle">A controlled environment for testing Push Security browser extension controls.</p>
+
+    <!-- Scenario 1: File Download -->
+    <div class="card">
+        <div class="label">Scenario 1</div>
+        <h2>File Download</h2>
+        <p>Download the test PDF below. Push Security monitors file downloads to detect sensitive data exfiltration.</p>
+        <a class="btn" href="test-file.pdf" download>Download test-file.pdf</a>
+    </div>
+
+    <!-- Scenario 2: External Link Navigation -->
+    <div class="card">
+        <div class="label">Scenario 2</div>
+        <h2>External Link Navigation</h2>
+        <p>Click these links to simulate navigation to external services. Push detects when users visit new SaaS apps
+            for the first time.</p>
+        <a class="btn" href="https://docs.google.com" target="_blank">Google Docs</a>
+        <a class="btn secondary" href="https://notion.so" target="_blank">Notion</a>
+        <a class="btn secondary" href="https://dropbox.com" target="_blank">Dropbox</a>
+    </div>
+
+    <!-- Scenario 3: Mock Login Form -->
+    <div class="card">
+        <div class="label">Scenario 3</div>
+        <h2>Mock Credential Submission</h2>
+        <p>This form simulates a login page. Push Security detects credential input and can flag weak, reused, or
+            unmanaged passwords.</p>
+        <form action="#" method="post">
+            <input type="email" placeholder="Email address" />
+            <input type="password" placeholder="Password" />
+            <input type="submit" value="Sign In (Test)" />
+        </form>
+    </div>
+
+    <!-- Scenario 4: File Upload -->
+    <div class="card">
+        <div class="label">Scenario 4</div>
+        <h2>File Upload</h2>
+        <p>Upload any file below. Push Security can detect file uploads to unmanaged or unsanctioned web apps.</p>
+        <form>
+            <input type="file" />
+            <br /><br />
+            <input type="submit" value="Upload (Test)" />
+        </form>
+    </div>
+
+    <footer>Push Security Test Lab · Internal Use Only · Not a real application</footer>
+
+</body>
+
+</html>
