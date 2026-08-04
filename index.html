@@ -458,11 +458,11 @@
 
     <div class="badge">
       <span class="dot"></span>
-      Push Security · Active Session
+      Browser Sec Lab · Active Session
     </div>
 
     <p class="hero-desc">
-      A controlled environment for testing Push Security browser extension telemetry.
+      A controlled environment for testing browser security extension telemetry.
       Every action on this page is a signal. Download a file. Upload something. Navigate away.
       Push is watching. 👀
     </p>
@@ -498,7 +498,7 @@
       <div class="card-icon">📥</div>
       <div class="scenario-tag">Scenario 01</div>
       <h3>File Download</h3>
-      <p>Download the test PDF. Push Security detects file downloads to flag potential data exfiltration from unsanctioned web apps.</p>
+      <p>Download the test PDF. Browser security tools detect file downloads to flag potential data exfiltration from unsanctioned web apps.</p>
       <a class="btn" href="test-file.pdf" download onclick="incrementEvents()">
         ↓ Download test-file.pdf
       </a>
@@ -522,12 +522,12 @@
       <div class="card-icon">📤</div>
       <div class="scenario-tag">Scenario 03</div>
       <h3>File Upload to Unmanaged App</h3>
-      <p>Upload any file below. Push Security monitors file uploads to unmanaged or unsanctioned destinations — a key signal for data loss detection.</p>
+      <p>Upload any file below. Browser security tools monitor file uploads to unmanaged or unsanctioned destinations — a key signal for data loss detection.</p>
 
       <div class="drop-zone" id="drop-zone" onclick="document.getElementById('file-input').click()">
         <div class="dz-icon">🗂️</div>
         <div class="dz-label">Drop a file or click to browse</div>
-        <div class="dz-sub">Any file type · Push will log the upload event</div>
+        <div class="dz-sub">Any file type · extension will log the upload event</div>
       </div>
       <input type="file" id="file-input" />
       <div id="upload-status"></div>
@@ -544,7 +544,7 @@
       <span class="title">push-extension — event stream</span>
     </div>
     <div class="terminal-body" id="terminal-log">
-      <div class="t-line"><span class="t-prompt">→</span><span class="t-out">Connecting to Push Security extension...</span></div>
+      <div class="t-line"><span class="t-prompt">→</span><span class="t-out">Connecting to browser security extension...</span></div>
       <div class="t-line"><span class="t-prompt">→</span><span class="t-highlight">Extension enrolled. Tenant: jakesbrowsersec.com</span></div>
       <div class="t-line"><span class="t-prompt">→</span><span class="t-out">Monitoring: file downloads, SaaS navigation, uploads</span></div>
       <div class="t-line"><span class="t-prompt">→</span><span class="t-warn">Waiting for test events...</span>&nbsp;<span class="cursor"></span></div>
@@ -552,8 +552,54 @@
   </div>
 
   <!-- ── FOOTER ── -->
+  <!-- ── Browser Security News ── -->
+  <section style="margin: 48px 0 40px;">
+    <div style="display:flex; align-items:center; gap:10px; margin-bottom:20px;">
+      <span style="font-family:'JetBrains Mono',monospace; font-size:11px; color:#EE4323; letter-spacing:0.15em; text-transform:uppercase;">// Latest in Browser Security</span>
+      <div style="flex:1; height:1px; background:#2a2a3a;"></div>
+    </div>
+    <div style="display:grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap:14px;">
+      <a href="https://www.bleepingcomputer.com/news/security/2026-browser-data-reveals-major-enterprise-security-blind-spots/" target="_blank" style="text-decoration:none;">
+        <div style="background:#111118; border:1px solid #2a2a3a; border-radius:10px; padding:18px; transition:border-color 0.2s;" onmouseover="this.style.borderColor='#EE4323'" onmouseout="this.style.borderColor='#2a2a3a'">
+          <div style="font-size:10px; font-family:'JetBrains Mono',monospace; color:#EE4323; margin-bottom:8px; text-transform:uppercase; letter-spacing:0.1em;">BleepingComputer</div>
+          <div style="font-size:13px; font-weight:600; color:#e8e8f0; line-height:1.5;">2026 Browser Data Reveals Major Enterprise Security Blind Spots</div>
+        </div>
+      </a>
+      <a href="https://www.menlosecurity.com/press-releases/menlo-securitys-2026-browser-threat-report-finds-1-in-5-enterprise-phishing-attacks-go-completely-undetected-by-the-security-tools-built-to-stop-them" target="_blank" style="text-decoration:none;">
+        <div style="background:#111118; border:1px solid #2a2a3a; border-radius:10px; padding:18px; transition:border-color 0.2s;" onmouseover="this.style.borderColor='#EE4323'" onmouseout="this.style.borderColor='#2a2a3a'">
+          <div style="font-size:10px; font-family:'JetBrains Mono',monospace; color:#EE4323; margin-bottom:8px; text-transform:uppercase; letter-spacing:0.1em;">Menlo Security</div>
+          <div style="font-size:13px; font-weight:600; color:#e8e8f0; line-height:1.5;">1 in 5 Enterprise Phishing Attacks Go Completely Undetected</div>
+        </div>
+      </a>
+      <a href="https://thehackernews.com/expert-insights/2026/04/work-moved-into-browser-security-didnt.html" target="_blank" style="text-decoration:none;">
+        <div style="background:#111118; border:1px solid #2a2a3a; border-radius:10px; padding:18px; transition:border-color 0.2s;" onmouseover="this.style.borderColor='#EE4323'" onmouseout="this.style.borderColor='#2a2a3a'">
+          <div style="font-size:10px; font-family:'JetBrains Mono',monospace; color:#EE4323; margin-bottom:8px; text-transform:uppercase; letter-spacing:0.1em;">The Hacker News</div>
+          <div style="font-size:13px; font-weight:600; color:#e8e8f0; line-height:1.5;">Work Moved Into the Browser. Security Didn't. AI Is Exposing the Gap.</div>
+        </div>
+      </a>
+      <a href="https://keepaware.com/resources/guides/the-state-of-browser-security-report-2026-2" target="_blank" style="text-decoration:none;">
+        <div style="background:#111118; border:1px solid #2a2a3a; border-radius:10px; padding:18px; transition:border-color 0.2s;" onmouseover="this.style.borderColor='#EE4323'" onmouseout="this.style.borderColor='#2a2a3a'">
+          <div style="font-size:10px; font-family:'JetBrains Mono',monospace; color:#EE4323; margin-bottom:8px; text-transform:uppercase; letter-spacing:0.1em;">Keep Aware</div>
+          <div style="font-size:13px; font-weight:600; color:#e8e8f0; line-height:1.5;">State of Browser Security Report 2026</div>
+        </div>
+      </a>
+      <a href="https://www.scworld.com/brief/2026-state-of-browser-security-report-highlights-ai-integration-and-evolving-threats" target="_blank" style="text-decoration:none;">
+        <div style="background:#111118; border:1px solid #2a2a3a; border-radius:10px; padding:18px; transition:border-color 0.2s;" onmouseover="this.style.borderColor='#EE4323'" onmouseout="this.style.borderColor='#2a2a3a'">
+          <div style="font-size:10px; font-family:'JetBrains Mono',monospace; color:#EE4323; margin-bottom:8px; text-transform:uppercase; letter-spacing:0.1em;">SC Media</div>
+          <div style="font-size:13px; font-weight:600; color:#e8e8f0; line-height:1.5;">2026 State of Browser Security: AI Integration and Evolving Threats</div>
+        </div>
+      </a>
+      <a href="https://www.parallels.com/products/ras/all-resources/reports/browser-security-2026/" target="_blank" style="text-decoration:none;">
+        <div style="background:#111118; border:1px solid #2a2a3a; border-radius:10px; padding:18px; transition:border-color 0.2s;" onmouseover="this.style.borderColor='#EE4323'" onmouseout="this.style.borderColor='#2a2a3a'">
+          <div style="font-size:10px; font-family:'JetBrains Mono',monospace; color:#EE4323; margin-bottom:8px; text-transform:uppercase; letter-spacing:0.1em;">Parallels / Omdia</div>
+          <div style="font-size:13px; font-weight:600; color:#e8e8f0; line-height:1.5;">Browser Security in 2026: Research Report</div>
+        </div>
+      </a>
+    </div>
+  </section>
+
   <footer>
-    <span>jakesbrowsersec.com · <a href="https://pushsecurity.com" target="_blank">pushsecurity.com</a></span>
+    <span>jakesbrowsersec.com · browser security testing lab</span>
     <span>Internal Use Only · Not a real app</span>
   </footer>
 
@@ -619,7 +665,7 @@
   fileInput.addEventListener('change', e => {
     const file = e.target.files[0];
     if (file) {
-      uploadStatus.textContent = `✓ Staged: ${file.name} (${(file.size/1024).toFixed(1)} KB) — Push event logged`;
+      uploadStatus.textContent = `✓ Staged: ${file.name} (${(file.size/1024).toFixed(1)} KB) — extension event logged`;
       incrementEvents('upload', file.name);
     }
   });
@@ -631,7 +677,7 @@
     dropZone.classList.remove('drag-over');
     const file = e.dataTransfer.files[0];
     if (file) {
-      uploadStatus.textContent = `✓ Staged: ${file.name} (${(file.size/1024).toFixed(1)} KB) — Push event logged`;
+      uploadStatus.textContent = `✓ Staged: ${file.name} (${(file.size/1024).toFixed(1)} KB) — extension event logged`;
       incrementEvents('upload', file.name);
     }
   });
