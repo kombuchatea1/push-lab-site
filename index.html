@@ -463,24 +463,19 @@
 
     <p class="hero-desc">
       A controlled environment for testing browser security extension telemetry.
-      Every action on this page is a signal. Download a file. Upload something. Navigate away.
-      Use this site to run testing scenarios and leverage the power of browser security guardrails — whether it's DLP, shadow SaaS, or AI governance.
+      Every action on this page is a signal. Use Jake's Browser Security Lab to run real testing scenarios and leverage the power of browser security guardrails — whether it's DLP controls, blocking PDF uploads to AI tools, or deploying governance banners on GenAI apps.
     </p>
   </div>
 
   <!-- ── STATS ── -->
   <div class="stats">
     <div class="stat">
-      <div class="val">3</div>
+      <div class="val">4</div>
       <div class="lbl">Test Scenarios</div>
     </div>
     <div class="stat">
       <div class="val" id="event-count">0</div>
       <div class="lbl">Events Triggered</div>
-    </div>
-    <div class="stat">
-      <div class="val">👁️</div>
-      <div class="lbl">Extension Active</div>
     </div>
     <div class="stat">
       <div class="val" style="color:var(--green)">LIVE</div>
@@ -493,36 +488,48 @@
 
   <div class="cards">
 
-    <!-- Scenario 1: File Download -->
+    <!-- Scenario 1: AI Governance - Block PDF Downloads -->
     <div class="card" onclick="incrementEvents()">
       <div class="card-icon">📥</div>
-      <div class="scenario-tag">Scenario 01</div>
-      <h3>File Download</h3>
-      <p>Download the test PDF. Browser security tools detect file downloads to flag potential data exfiltration from unsanctioned web apps.</p>
-      <a class="btn" href="test-file.pdf" download onclick="incrementEvents()">
-        ↓ Download test-file.pdf
+      <div class="scenario-tag">Scenario 01 · AI Governance</div>
+      <h3>Block PDF Downloads</h3>
+      <p>Download this PDF to simulate a data exfiltration signal. Browser security tools can detect and block PDF downloads from unmanaged or unsanctioned web destinations — a core DLP control.</p>
+      <a class="btn" href="Jakes_Browser_Sec_Digital_Pizza_UPDATED.pdf" download onclick="incrementEvents()">
+        ↓ Download test PDF
       </a>
     </div>
 
-    <!-- Scenario 2: External Navigation -->
+    <!-- Scenario 2: AI Governance - Deploy App Banners on GenAI Tools -->
     <div class="card">
-      <div class="card-icon">🔗</div>
-      <div class="scenario-tag">Scenario 02</div>
-      <h3>Shadow SaaS Navigation</h3>
-      <p>Click to visit unsanctioned SaaS apps. Push detects when users access new or unmanaged apps for the first time.</p>
+      <div class="card-icon">🤖</div>
+      <div class="scenario-tag">Scenario 02 · AI Governance</div>
+      <h3>Deploy App Banners on GenAI Tools</h3>
+      <p>Visit these GenAI tools to simulate banner deployment. Browser security tools can inject real-time warning banners on AI apps to remind employees of acceptable use policies before they interact.</p>
       <div style="display:flex; gap:8px; flex-wrap:wrap;">
-        <a class="btn" href="https://notion.so" target="_blank" onclick="incrementEvents()">Notion</a>
-        <a class="btn ghost" href="https://dropbox.com" target="_blank" onclick="incrementEvents()">Dropbox</a>
-        <a class="btn ghost" href="https://docs.google.com" target="_blank" onclick="incrementEvents()">Google Docs</a>
+        <a class="btn" href="https://chat.openai.com" target="_blank" onclick="incrementEvents()">ChatGPT</a>
+        <a class="btn ghost" href="https://gemini.google.com" target="_blank" onclick="incrementEvents()">Gemini</a>
+        <a class="btn ghost" href="https://claude.ai" target="_blank" onclick="incrementEvents()">Claude</a>
       </div>
     </div>
 
-    <!-- Scenario 3: File Upload (full width) -->
+    <!-- Scenario 3: AI Governance - Block PDF Uploads to AI Tools -->
+    <div class="card">
+      <div class="card-icon">🚫</div>
+      <div class="scenario-tag">Scenario 03 · AI Governance</div>
+      <h3>Block PDF Uploads to AI Tools</h3>
+      <p>Upload a PDF to simulate a sensitive data leak to an AI tool. Browser security tools can detect and block file uploads to GenAI destinations — preventing proprietary documents, code, or PII from entering unmanaged AI systems.</p>
+      <div style="display:flex; gap:8px; flex-wrap:wrap;">
+        <a class="btn" href="https://chat.openai.com" target="_blank" onclick="incrementEvents()">Test via ChatGPT</a>
+        <a class="btn ghost" href="https://gemini.google.com" target="_blank" onclick="incrementEvents()">Test via Gemini</a>
+      </div>
+    </div>
+
+    <!-- Scenario 4: DLP - File Upload to Unmanaged App (full width) -->
     <div class="card full">
       <div class="card-icon">📤</div>
-      <div class="scenario-tag">Scenario 03</div>
-      <h3>File Upload to Unmanaged App</h3>
-      <p>Upload any file below. Browser security tools monitor file uploads to unmanaged or unsanctioned destinations — a key signal for data loss detection.</p>
+      <div class="scenario-tag">Scenario 04 · DLP</div>
+      <h3>File Upload to Unmanaged Destination</h3>
+      <p>Drop any file below to simulate an upload to an unsanctioned destination. Browser security tools monitor file uploads to flag data loss risk — catching what traditional network DLP misses when traffic is encrypted.</p>
 
       <div class="drop-zone" id="drop-zone" onclick="document.getElementById('file-input').click()">
         <div class="dz-icon">🗂️</div>
@@ -546,7 +553,7 @@
     <div class="terminal-body" id="terminal-log">
       <div class="t-line"><span class="t-prompt">→</span><span class="t-out">Connecting to browser security extension...</span></div>
       <div class="t-line"><span class="t-prompt">→</span><span class="t-highlight">Extension enrolled. Tenant: jakesbrowsersec.com</span></div>
-      <div class="t-line"><span class="t-prompt">→</span><span class="t-out">Monitoring: file downloads, SaaS navigation, uploads</span></div>
+      <div class="t-line"><span class="t-prompt">→</span><span class="t-out">Monitoring: PDF downloads, GenAI navigation, file uploads, DLP signals</span></div>
       <div class="t-line"><span class="t-prompt">→</span><span class="t-warn">Waiting for test events...</span>&nbsp;<span class="cursor"></span></div>
     </div>
   </div>
