@@ -536,7 +536,7 @@
         <div><span style="color:#ff4444)">CRITICAL</span> · Unknown ext w/ <code style="color:var(--green)">&lt;all_urls&gt;</code> + <code style="color:var(--green)">clipboardRead</code></div>
       </div>
       <div style="display:flex; gap:8px; flex-wrap:wrap; margin-top:14px;">
-        <a class="btn" href="edge://extensions" onclick="incrementEvents()">Inspect Extensions</a>
+        <a class="btn" id="inspect-extensions-btn" href="edge://extensions" onclick="incrementEvents()">Inspect Extensions</a>
         <a class="btn ghost" href="https://pushsecurity.com/solution/stop-browser-based-attacks/malicious-browser-extensions" target="_blank" onclick="incrementEvents()">Learn More</a>
       </div>
     </div>
@@ -712,6 +712,45 @@
       incrementEvents('upload', file.name);
     }
   });
+
+  // ── Browser extension page detection ──
+  (function() {
+    const ua = navigator.userAgent;
+    const btn = document.getElementById('inspect-extensions-btn');
+    if (!btn) return;
+
+    let url, label;
+
+    if (ua.includes('Edg/')) {
+      url = 'edge://extensions';
+      label = 'Inspect Extensions (Edge)';
+    } else if (typeof navigator.brave !== 'undefined') {
+      url = 'brave://extensions';
+      label = 'Inspect Extensions (Brave)';
+    } else if (ua.includes('OPR/') || ua.includes('Opera/')) {
+      url = 'opera://extensions';
+      label = 'Inspect Extensions (Opera)';
+    } else if (ua.includes('Firefox/')) {
+      url = 'about:addons';
+      label = 'Inspect Extensions (Firefox)';
+    } else if (ua.includes('Chrome/')) {
+      url = 'chrome://extensions';
+      label = 'Inspect Extensions (Chrome)';
+    } else {
+      url = null;
+      label = 'Open Extensions Page Manually';
+    }
+
+    if (url) {
+      btn.href = url;
+    } else {
+      btn.removeAttribute('href');
+      btn.style.opacity = '0.6';
+      btn.style.cursor = 'default';
+    }
+    btn.textContent = label;
+  })();
+
 </script>
 </body>
 </html>
