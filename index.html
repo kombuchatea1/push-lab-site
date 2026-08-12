@@ -524,10 +524,27 @@
       </div>
     </div>
 
-    <!-- Scenario 4: DLP - File Upload to Unmanaged App (full width) -->
+    <!-- Scenario 4: Extension Security -->
+    <div class="card">
+      <div class="card-icon">🧩</div>
+      <div class="scenario-tag">Scenario 04 · Extension Security</div>
+      <h3>Block Risky Browser Extensions</h3>
+      <p>Browser security tools can detect and block extensions based on permissions or identity. Extensions requesting access to <strong style="color:var(--orange)">all websites</strong>, clipboard, or download history are common vectors for credential theft and data exfiltration.</p>
+      <div style="margin-top:12px; background:var(--bg); border:1px solid var(--border); border-radius:8px; padding:12px; font-family:var(--mono); font-size:11px; color:var(--muted); line-height:1.9;">
+        <div><span style="color:var(--orange)">HIGH</span> · Grammarly — read/write all websites</div>
+        <div><span style="color:var(--orange)">HIGH</span> · Honey — reads all page content</div>
+        <div><span style="color:#ff4444)">CRITICAL</span> · Unknown ext w/ <code style="color:var(--green)">&lt;all_urls&gt;</code> + <code style="color:var(--green)">clipboardRead</code></div>
+      </div>
+      <div style="display:flex; gap:8px; flex-wrap:wrap; margin-top:14px;">
+        <a class="btn" href="edge://extensions" onclick="incrementEvents()">Inspect Extensions</a>
+        <a class="btn ghost" href="https://pushsecurity.com/solution/stop-browser-based-attacks/malicious-browser-extensions" target="_blank" onclick="incrementEvents()">Learn More</a>
+      </div>
+    </div>
+
+    <!-- Scenario 5: DLP - File Upload to Unmanaged App (full width) -->
     <div class="card full">
       <div class="card-icon">📤</div>
-      <div class="scenario-tag">Scenario 04 · DLP</div>
+      <div class="scenario-tag">Scenario 05 · DLP</div>
       <h3>File Upload to Unmanaged Destination</h3>
       <p>Drop any file below to simulate an upload to an unsanctioned destination. Browser security tools monitor file uploads to flag data loss risk — catching what traditional network DLP misses when traffic is encrypted.</p>
 
@@ -538,23 +555,6 @@
       </div>
       <input type="file" id="file-input" />
       <div id="upload-status"></div>
-    </div>
-
-    <!-- Scenario 5: Block Malicious Browser Extensions -->
-    <div class="card full">
-      <div class="card-icon">🧩</div>
-      <div class="scenario-tag">Scenario 05 · Extension Security</div>
-      <h3>Block Risky Browser Extensions</h3>
-      <p>Browser security tools can detect and block extensions based on their permissions or identity. Extensions requesting access to <strong style="color:var(--orange)">all websites</strong>, clipboard, or download history are common vectors for credential theft and data exfiltration. Use the links below to inspect known high-permission extensions — a browser security tool would flag or block these based on your policy.</p>
-      <div style="margin-top:16px; background:var(--bg); border:1px solid var(--border); border-radius:8px; padding:14px; font-family:var(--mono); font-size:12px; color:var(--muted); line-height:1.8;">
-        <div><span style="color:var(--orange)">RISK: HIGH</span> · Grammarly — requests read/write access to all websites</div>
-        <div><span style="color:var(--orange)">RISK: HIGH</span> · Honey — reads all page content on every site visited</div>
-        <div><span style="color:var(--orange)">RISK: CRITICAL</span> · Unknown extensions with <code style="color:var(--green)">&lt;all_urls&gt;</code> + <code style="color:var(--green)">clipboardRead</code> permissions</div>
-      </div>
-      <div style="display:flex; gap:8px; flex-wrap:wrap; margin-top:16px;">
-        <a class="btn" href="edge://extensions" onclick="incrementEvents()">Inspect Your Extensions</a>
-        <a class="btn ghost" href="https://pushsecurity.com/solution/stop-browser-based-attacks/malicious-browser-extensions" target="_blank" onclick="incrementEvents()">Push Extension Blocking Docs</a>
-      </div>
     </div>
 
   </div>
