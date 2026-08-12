@@ -470,7 +470,7 @@
   <!-- ── STATS ── -->
   <div class="stats">
     <div class="stat">
-      <div class="val">4</div>
+      <div class="val">5</div>
       <div class="lbl">Test Scenarios</div>
     </div>
     <div class="stat">
@@ -540,6 +540,23 @@
       <div id="upload-status"></div>
     </div>
 
+    <!-- Scenario 5: Block Malicious Browser Extensions -->
+    <div class="card full">
+      <div class="card-icon">🧩</div>
+      <div class="scenario-tag">Scenario 05 · Extension Security</div>
+      <h3>Block Risky Browser Extensions</h3>
+      <p>Browser security tools can detect and block extensions based on their permissions or identity. Extensions requesting access to <strong style="color:var(--orange)">all websites</strong>, clipboard, or download history are common vectors for credential theft and data exfiltration. Use the links below to inspect known high-permission extensions — a browser security tool would flag or block these based on your policy.</p>
+      <div style="margin-top:16px; background:var(--bg); border:1px solid var(--border); border-radius:8px; padding:14px; font-family:var(--mono); font-size:12px; color:var(--muted); line-height:1.8;">
+        <div><span style="color:var(--orange)">RISK: HIGH</span> · Grammarly — requests read/write access to all websites</div>
+        <div><span style="color:var(--orange)">RISK: HIGH</span> · Honey — reads all page content on every site visited</div>
+        <div><span style="color:var(--orange)">RISK: CRITICAL</span> · Unknown extensions with <code style="color:var(--green)">&lt;all_urls&gt;</code> + <code style="color:var(--green)">clipboardRead</code> permissions</div>
+      </div>
+      <div style="display:flex; gap:8px; flex-wrap:wrap; margin-top:16px;">
+        <a class="btn" href="edge://extensions" onclick="incrementEvents()">Inspect Your Extensions</a>
+        <a class="btn ghost" href="https://pushsecurity.com/solution/stop-browser-based-attacks/malicious-browser-extensions" target="_blank" onclick="incrementEvents()">Push Extension Blocking Docs</a>
+      </div>
+    </div>
+
   </div>
 
   <!-- ── TERMINAL LOG ── -->
@@ -566,6 +583,13 @@
       <div style="flex:1; height:1px; background:#2a2a3a;"></div>
     </div>
     <div style="display:grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap:14px;">
+      <a href="https://pushsecurity.com/blog/product-release-july-2026" target="_blank" style="text-decoration:none;">
+        <div style="background:#111118; border:1px solid #EE4323; border-radius:10px; padding:18px; transition:border-color 0.2s; position:relative;" onmouseover="this.style.borderColor='#ff6644'" onmouseout="this.style.borderColor='#EE4323'">
+          <div style="position:absolute; top:12px; right:12px; font-size:9px; font-family:'JetBrains Mono',monospace; background:#EE4323; color:#fff; padding:2px 7px; border-radius:999px; letter-spacing:0.08em;">NEW</div>
+          <div style="font-size:10px; font-family:'JetBrains Mono',monospace; color:#EE4323; margin-bottom:8px; text-transform:uppercase; letter-spacing:0.1em;">Push Security · Jul 2026</div>
+          <div style="font-size:13px; font-weight:600; color:#e8e8f0; line-height:1.5;">Product Release: Clipboard Blocking, File Download & Upload Blocking, App Categorization</div>
+        </div>
+      </a>
       <a href="https://www.bleepingcomputer.com/news/security/2026-browser-data-reveals-major-enterprise-security-blind-spots/" target="_blank" style="text-decoration:none;">
         <div style="background:#111118; border:1px solid #2a2a3a; border-radius:10px; padding:18px; transition:border-color 0.2s;" onmouseover="this.style.borderColor='#EE4323'" onmouseout="this.style.borderColor='#2a2a3a'">
           <div style="font-size:10px; font-family:'JetBrains Mono',monospace; color:#EE4323; margin-bottom:8px; text-transform:uppercase; letter-spacing:0.1em;">BleepingComputer</div>
